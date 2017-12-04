@@ -23,6 +23,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         ViewPager viewPager = findViewById(R.id.myviewpage);
         TabLayout table = findViewById(R.id.viewpager_table);
+
         initFragmentList();
         viewPager.setOffscreenPageLimit(3);
         MyFragmentPagerAdapter myAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragments, mTitleList);
