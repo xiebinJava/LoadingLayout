@@ -39,7 +39,7 @@ public class TestOneFragment extends BaseFragment{
                 loadData();
             }
         },2000);
-        Button button = bindingView.findViewById(R.id.buttons);
+        Button button = myContentView.findViewById(R.id.buttons);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

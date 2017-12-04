@@ -21,7 +21,7 @@ import com.xie.brad.loadinglayout.utils.PerfectClickListener;
 public abstract class BaseFragment extends Fragment {
 
     // 布局view
-    protected View bindingView;
+    protected View myContentView;
     // fragment是否显示了
     protected boolean mIsVisible = false;
     // 加载中
@@ -38,9 +38,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View ll = inflater.inflate(R.layout.fragment_base, null);
-        bindingView = View.inflate(getActivity().getApplicationContext(), setContent(), null);
+        myContentView = View.inflate(getActivity().getApplicationContext(), setContent(), null);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        myContentView.setLayoutParams(params);
         mContainer = (RelativeLayout) ll.findViewById(R.id.container);
-        mContainer.addView(bindingView);
+        mContainer.addView(myContentView);
         return ll;
     }
 
@@ -96,7 +98,7 @@ public abstract class BaseFragment extends Fragment {
                 onRefresh();
             }
         });
-        bindingView.setVisibility(View.GONE);
+        myContentView.setVisibility(View.GONE);
 
     }
 
@@ -127,8 +129,8 @@ public abstract class BaseFragment extends Fragment {
         if (!mAnimationDrawable.isRunning()) {
             mAnimationDrawable.start();
         }
-        if (bindingView.getVisibility() != View.GONE) {
-            bindingView.setVisibility(View.GONE);
+        if (myContentView.getVisibility() != View.GONE) {
+            myContentView.setVisibility(View.GONE);
         }
         if (mRefresh.getVisibility() != View.GONE) {
             mRefresh.setVisibility(View.GONE);
@@ -149,8 +151,8 @@ public abstract class BaseFragment extends Fragment {
         if (mRefresh.getVisibility() != View.GONE) {
             mRefresh.setVisibility(View.GONE);
         }
-        if (bindingView.getVisibility() != View.VISIBLE) {
-            bindingView.setVisibility(View.VISIBLE);
+        if (myContentView.getVisibility() != View.VISIBLE) {
+            myContentView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -168,8 +170,8 @@ public abstract class BaseFragment extends Fragment {
         if (mRefresh.getVisibility() != View.VISIBLE) {
             mRefresh.setVisibility(View.VISIBLE);
         }
-        if (bindingView.getVisibility() != View.GONE) {
-            bindingView.setVisibility(View.GONE);
+        if (myContentView.getVisibility() != View.GONE) {
+            myContentView.setVisibility(View.GONE);
         }
     }
 

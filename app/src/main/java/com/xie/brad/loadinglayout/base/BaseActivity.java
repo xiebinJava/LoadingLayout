@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,10 +25,10 @@ import com.xie.brad.loadinglayout.utils.StatusBarUtil;
 public class BaseActivity extends AppCompatActivity {
 
     // 布局view
-    protected View bindingView;
+    protected View myContentView;
     private LinearLayout llProgressBar;
     private View refresh;
-    private View mBaseBinding;
+    private View myBaseView;
     private AnimationDrawable mAnimationDrawable;
     private Toolbar toolbar;
 
@@ -44,12 +45,14 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
 
-        mBaseBinding = View.inflate(this, R.layout.activity_base, null);
-        bindingView = View.inflate(this, layoutResID, null);
-        RelativeLayout mContainer = (RelativeLayout) mBaseBinding.findViewById(R.id.container);
-        toolbar = mBaseBinding.findViewById(R.id.tool_bar);
-        mContainer.addView(bindingView);
-        getWindow().setContentView(mBaseBinding);
+        myBaseView = View.inflate(this, R.layout.activity_base, null);
+        myContentView = View.inflate(this, layoutResID, null);
+        RelativeLayout mContainer = (RelativeLayout) myBaseView.findViewById(R.id.container);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        myContentView.setLayoutParams(params);
+        toolbar = myBaseView.findViewById(R.id.tool_bar);
+        mContainer.addView(myContentView);
+        getWindow().setContentView(myBaseView);
 
         // 设置透明状态栏
         StatusBarUtil.setColor(this, CommonUtils.getColor(R.color.colorTheme),0);
@@ -73,7 +76,7 @@ public class BaseActivity extends AppCompatActivity {
                 onRefresh();
             }
         });
-        bindingView.setVisibility(View.GONE);
+        myContentView.setVisibility(View.GONE);
     }
 
     /**
@@ -108,8 +111,8 @@ public class BaseActivity extends AppCompatActivity {
         if (!mAnimationDrawable.isRunning()) {
             mAnimationDrawable.start();
         }
-        if (bindingView.getVisibility() != View.GONE) {
-            bindingView.setVisibility(View.GONE);
+        if (myContentView.getVisibility() != View.GONE) {
+            myContentView.setVisibility(View.GONE);
         }
         if (refresh.getVisibility() != View.GONE) {
             refresh.setVisibility(View.GONE);
@@ -127,8 +130,8 @@ public class BaseActivity extends AppCompatActivity {
         if (refresh.getVisibility() != View.GONE) {
             refresh.setVisibility(View.GONE);
         }
-        if (bindingView.getVisibility() != View.VISIBLE) {
-            bindingView.setVisibility(View.VISIBLE);
+        if (myContentView.getVisibility() != View.VISIBLE) {
+            myContentView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -143,8 +146,8 @@ public class BaseActivity extends AppCompatActivity {
         if (refresh.getVisibility() != View.VISIBLE) {
             refresh.setVisibility(View.VISIBLE);
         }
-        if (bindingView.getVisibility() != View.GONE) {
-            bindingView.setVisibility(View.GONE);
+        if (myContentView.getVisibility() != View.GONE) {
+            myContentView.setVisibility(View.GONE);
         }
     }
 
